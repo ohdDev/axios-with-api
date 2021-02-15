@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Bitcoin Price Index</h1>
+      
+        <!-- Show this section when there is an error -->
+        <section v-if="errored">
+          <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+        </section>
+      
+        <!-- Show this section when there is no errors -->
+        <section v-else>
+        <!-- show this div before API data retrived completely -->
+          <div v-if="loading">Loading...</div>
+        <!-- show this div when the API data completely retrived -->
+        <!-- v-for to walk through api data -->
+          <div
+            v-else 
+            v-for="currency in info"
+            class="currency"
+          >
+            {{ currency.description }}:
+            <span class="lighten">
+                <!-- filter currency.rate_float data using currencydecimal function -->
+              <span v-html="currency.symbol"></span>{{ currency.rate_float | currencydecimal }}
+            </span>
+          </div>
+      
+        </section>
+      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
